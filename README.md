@@ -12,6 +12,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+### Docker support
+**Run**  
+```bash docker run -it --rm -p 8088:8088 robertcsapo/yang-explorer```
+
+**Build**  
+```git clone https://github.com/robertcsapo/yang-explorer.git```  
+```cd yang-explorer```  
+```docker build -t robertcsapo/yang-explorer .```  
+
 ###1. Description
    An open-source Yang Browser and RPC Builder Application to experiment with Yang Data Models
    
