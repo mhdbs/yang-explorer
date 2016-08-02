@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOST='localhost'
+HOST=$HOSTNAME
 PORT='8088'
 
 # set timeout value for ncclient
