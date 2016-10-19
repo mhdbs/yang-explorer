@@ -14,7 +14,7 @@ limitations under the License.
 
 ### Docker support
 **Run**  
-```bash docker run -it --rm -p 8088:8088 robertcsapo/yang-explorer```
+```docker run -it --rm -p 8088:8088 robertcsapo/yang-explorer```
 
 **Build**  
 ```git clone https://github.com/robertcsapo/yang-explorer.git```  
