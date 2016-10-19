@@ -40,6 +40,7 @@ limitations under the License.
    ![alt tag](https://github.com/CiscoDevNet/yang-explorer/blob/master/docs/images/explorer.png)
    ![alt tag](https://github.com/CiscoDevNet/yang-explorer/blob/master/docs/images/graph.png)
    ![alt tag](https://github.com/CiscoDevNet/yang-explorer/blob/master/docs/images/script.png)
+   ![alt tag](https://github.com/CiscoDevNet/yang-explorer/blob/master/docs/images/netconf-operations.png)
 
 ###2. Installation
 ####2.1 First time installation
@@ -56,7 +57,7 @@ limitations under the License.
 ```
    - virtualenv (recommended)
 ```bash
-   Ubuntu: sudo apt-get install virtualenv
+   Ubuntu: sudo apt-get install python-virtualenv
    Fedora: sudo dnf install python-virtualenv
    MAC: sudo pip install virtualenv
 ```
@@ -72,11 +73,11 @@ limitations under the License.
 ```bash
    git clone https://github.com/CiscoDevNet/yang-explorer.git
    cd yang-explorer
-   [sudo] bash setup.sh
+   bash setup.sh
 
    Note: sudo may be required if you do not use virtualenv.
 ```
-   See section 6 Troubleshooting for more:
+   See section 7 Troubleshooting for more:
 ```bash
    If you get installation error for missing python.h or xmlversion.h try installing
    dependency packages:
@@ -84,7 +85,7 @@ limitations under the License.
    Ubuntu: sudo apt-get install libxml2-dev libxslt1-dev python-dev zlib1g-dev
    Fedora: sudo dnf install libxml2-devel libxslt-devel python-devel zlib-devel
 ```
-####2.2 Update exising installtion
+####2.2 Update exising installation
 
 ```bash
   cd <install-root>/yang-explorer
@@ -93,13 +94,30 @@ limitations under the License.
   git stash apply (if you have local changes)
   bash setup.sh
 ```
+####2.3 Backing up data
+
+   YangExplorer data can be backed up from data directory and it is portable to new servers -
+```bash
+   cp -r <install-root>/yang-explorer/server/data <backup-location>/data
+```
+
+   **Restore from backup location -**
+```bash
+   cd <install-root>/yang-explorer/server
+
+   # move current data to tmp location
+   mv data data_old
+   
+   # replace data from backup location
+   cp -r <backup-location>/data data
+```
 
 ###3. Running YangExplorer
 ####3.1 Running with localhost
 #####Start Server:
 ```bash
    cd <install-root>/yang-explorer
-   [sudo] ./start.sh
+   [sudo] ./start.sh &
 
    Note: sudo may be required if you did not use virtualenv during installation.
 ```
@@ -214,6 +232,12 @@ limitations under the License.
       - Enter data values for edit-config operation
       - Use **Reset** button on top-right bar to reset data in the model tree
 
+   - Update netconf operations for edit-config (optional advance option)
+
+    ![alt tag](https://github.com/CiscoDevNet/yang-explorer/blob/master/docs/images/netconf-operations.png)
+      - Select **Operations** tab
+      - Select error-option
+      - Check / Uncheck lock option
    - Click **RPC** button under **Build** tab
 
 #####5.2.5 Executing RPCs:
@@ -290,16 +314,34 @@ Collections can be used to save user generated RPCs on the server so that saved 
       - Provide description for this collection
    - click **Save**
 
-###6 Troubleshooting
-####6.1 Installation
-#####6.1.1 error for missing python.h or xmlversion.h
+###6 Misc Features
+####6.1 UI Model Tree annotations
+Targeted content in YangExplorer UI tree can be annotated in different color, usually to represent additional information about of the Yang model node.
+
+Installation:
+```bash
+  cd <install-root>/yang-explorer
+  bash setup.sh -a <path to annotation json file>
+```
+
+Please refresh browser to reflect changes. You should see UI model tree node name in different color as per annotation file.
+
+Uninstall:
+```bash
+  cd <install-root>/yang-explorer
+  bash setup.sh -r
+```
+
+###7 Troubleshooting
+####7.1 Installation
+#####7.1.1 error for missing python.h or xmlversion.h
    - Ubuntu: sudo apt-get install libxml2-dev libxslt1-dev python-dev
    - Mac : xcode-select --install
 
-#####6.1.2 django.db.utils.OperationalError: near "񐁂򐁇N": syntax error
+#####7.1.2 django.db.utils.OperationalError: near "񐁂򐁇N": syntax error
    - http://stackoverflow.com/questions/33270297/django-db-utils-operationalerror-near-n-syntax-error
 
-#####6.1.3 After install if you are not able to login using guest/guest try one of the following
+#####7.1.3 After install if you are not able to login using guest/guest try one of the following
    - mv server/data/db.sqlite3 server/data/db.sqlite3_backup
    - bash setup.sh
    In end of setup.sh script log you should see something like this -
@@ -312,8 +354,25 @@ Collections can be used to save user generated RPCs on the server so that saved 
       Use start.sh to start yang-explorer server
 ```
 
-####6.2 Yang Model Upload
-#####6.2.1 Failure during upload of yang model
+#####7.1.4 Installation failed due to python 3 not supported
+   Python 3 is not supported by ncclient. Please install python 2.7 before proceeding futher. If python 2.7 is already installed on your system along with python 3, virtualenv may try to create python 3 environment. You can do following -
+   ```bash
+   cd YangExplorer
+   rm -rf v
+   
+   # find path to python 2.7 on your system
+   ➜  ~  which python2.7   
+   /usr/bin/python2.7
+   
+   # create a virtualenv with python 2.7, path may differ based on your installation
+   virtualenv -p /usr/bin/python2.7 v
+   
+   # rerun setup
+   setup.sh
+   ```
+
+####7.2 Yang Model Upload
+#####7.2.1 Failure during upload of yang model
    - Chrome browser is required currently to upload models using User Interface
    - Please see failure message, if dependent models are missing you will see specific error in message window.
 
