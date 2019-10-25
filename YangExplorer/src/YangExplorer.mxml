@@ -71,7 +71,7 @@
         import modules.SearchWindow;
 
 
-        public var YTOOL_HOST:String = 'localhost:8088';
+        public var YTOOL_HOST:String = '172.18.0.2:8088';
 
         /* Tab navigator views for workflow */
         public static const TAB_BUILD_VIEW:int = 0;

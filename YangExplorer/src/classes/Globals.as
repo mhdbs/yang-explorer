@@ -25,7 +25,7 @@ package classes
         public var user : String;
         public function Globals()
         {
-            host = 'localhost';
+            host = '172.18.0.2';
             port = '8088'
             user = ''
         }

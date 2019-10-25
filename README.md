@@ -115,7 +115,7 @@ limitations under the License.
 ```
 
 ###3. Running YangExplorer
-####3.1 Running with localhost
+####3.1 Running with 172.18.0.2
 #####Start Server:
 ```bash
    cd <install-root>/yang-explorer
@@ -126,7 +126,7 @@ limitations under the License.
 
 #####Start Explorer:
 ```bash
-   http://localhost:8088/static/YangExplorer.html
+   http://172.18.0.2:8088/static/YangExplorer.html
 ```
 ####3.2 Running with ip-address (Shared server)
 #####Start Server:
